@@ -9,7 +9,7 @@ projects:
 - name: catalog
   git:
     remotes:
-      origin: https://github.com/djcoleman/devsamdbox-catalog-cq-examples.git
+      origin: https://github.com/djcoleman/devsandbox-catalog-cq-examples.git
 
 - name: database
   git:
@@ -20,7 +20,7 @@ projects:
   git:
     remotes:
       origin: https://github.com/apache/camel-quarkus-examples.git
-      
+
 components:
   - name: tools
     container:
