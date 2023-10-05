@@ -85,7 +85,7 @@ components:
           exposure: public
           targetPort: 3306
           protocol: tcp
-      command: [ "docker-entrypoint.sh" ]
+      command: [ "/usr/local/bin/docker-entrypoint.sh" ]
       
   - name: artemis
     container:
