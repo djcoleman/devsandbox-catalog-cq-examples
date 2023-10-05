@@ -106,7 +106,6 @@ components:
           name: artemis
           protocol: tcp
           targetPort: 61616
-      command: [ "/opt/amq/bin/launch.sh" ]
 
   - name: m2
     volume:
