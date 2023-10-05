@@ -74,6 +74,31 @@ components:
         - name: tutorial-storage
           path: /opt/user-walkthroughs
 
+  - name: mysql
+    container:
+      image: docker.io/mysql:8.1.0
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+      endpoints:
+        - name: mysql
+          exposure: public
+          targetPort: 3306
+          protocol: tcp
+      
+  - name: artemis
+    container:
+      image: quay.io/artemiscloud/activemq-artemis-broker:1.0.22
+      env:
+        - name: AMQ_USER
+          value: admin
+        - name: AMQ_PASSWORD
+          value: admin
+      endpoints:
+        - exposure: public
+          name: artemis
+          protocol: tcp
+          targetPort: 61616
 
   - name: m2
     volume:
