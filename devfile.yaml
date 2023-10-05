@@ -80,6 +80,12 @@ components:
       env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
+        - name: MYSQL_USER
+          value: cquser
+        - name: MYSQL_PASSWORD
+          value: cqpass
+        - name: MYSQL_DATABASE
+          value: testdb
       endpoints:
         - name: mysql
           exposure: public
