@@ -74,9 +74,9 @@ components:
         - name: tutorial-storage
           path: /opt/user-walkthroughs
 
-  - name: mysql
+  - name: database
     container:
-      image: docker.io/mysql:8.1.0
+      image: quay.io/centos7/mariadb-105-centos7
       env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
@@ -91,6 +91,7 @@ components:
           exposure: public
           targetPort: 3306
           protocol: tcp
+      command: [ "run-mysqld" ]
       
   - name: artemis
     container:
