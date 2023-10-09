@@ -79,7 +79,7 @@ components:
 
   - name: database
     container:
-      image: quay.io/centos7/mariadb-105-centos7
+      image: docker.io/mysql:8.1.0
       env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
