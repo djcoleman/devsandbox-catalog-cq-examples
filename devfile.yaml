@@ -106,7 +106,7 @@ components:
 commands:
   - id: create-audit-table
     exec:
-      commandLine: hostname && sleep 5 && mysql -ucquser -pcqpass testdb -e "CREATE TABLE audit_log (id bigint NOT NULL AUTO_INCREMENT, message varchar(255) DEFAULT NULL, PRIMARY KEY (id));"
+      commandLine: hostname && sleep 10 && mysql -ucquser -pcqpass testdb -e "CREATE TABLE audit_log (id bigint NOT NULL AUTO_INCREMENT, message varchar(255) DEFAULT NULL, PRIMARY KEY (id));"
       component: database
 
   - id: start-jta-jpa
