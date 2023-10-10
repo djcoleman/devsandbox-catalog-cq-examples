@@ -92,6 +92,7 @@ components:
           exposure: public
           targetPort: 3306
           protocol: tcp
+      memoryLimit: 256M
       
   - name: m2
     volume:
