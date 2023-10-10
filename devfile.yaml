@@ -134,6 +134,6 @@ commands:
       commandLine: curl -X POST http://localhost:8080/api/messages/crash
       component: tools
 
-#events:
-#  postStart:
-#    - create-audit-table
+events:
+  postStart:
+    - create-audit-table
