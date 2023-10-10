@@ -81,6 +81,8 @@ components:
     container:
       image: docker.io/mysql:8.1.0
       env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
         - name: MYSQL_USER
           value: cquser
         - name: MYSQL_PASSWORD
