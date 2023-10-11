@@ -134,6 +134,12 @@ commands:
       commandLine: curl -X POST http://localhost:8080/api/messages/crash
       component: tools
 
+  - id: start-jdbc-datasource
+    exec:
+      commandLine: mvn clean quarkus:dev -Dquarkus.profile=k8s
+      component: tools
+      workingDir: /projects/examples/jdbc-datasource
+
 events:
   postStart:
     - create-audit-table
