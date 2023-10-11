@@ -106,6 +106,7 @@ components:
         - name: artemis
           exposure: public
           targetPort: 61616
+      memoryLimit: 256M
 
   - name: m2
     volume:
