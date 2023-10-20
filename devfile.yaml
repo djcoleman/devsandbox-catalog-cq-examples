@@ -124,7 +124,7 @@ commands:
     exec:
       commandLine: >
         hostname && sleep 10 && 
-        mysql -uroot -proot testdb -e "GRANT XA_RECOVER_ADMIN on *.* to 'cquser'@'%'; FLUSH PRIVILEGES;" &&
+        mysql -uroot testdb -e "GRANT XA_RECOVER_ADMIN on *.* to 'cquser'@'%'; FLUSH PRIVILEGES;" &&
         mysql -ucquser -pcqpass testdb -e "CREATE TABLE audit_log (id bigint NOT NULL AUTO_INCREMENT, message varchar(255) DEFAULT NULL, PRIMARY KEY (id));"
       component: database
 
