@@ -118,9 +118,14 @@ components:
       size: 256Mi
 
 commands:
-  - id: create-audit-table
+  - id: setup-database
     exec:
-      commandLine: hostname && sleep 10 && mysql -ucquser -pcqpass testdb -e "CREATE TABLE audit_log (id bigint NOT NULL AUTO_INCREMENT, message varchar(255) DEFAULT NULL, PRIMARY KEY (id));"
+      commandLine: >
+        hostname && sleep 10 && 
+        mysql -ucquser -pcqpass testdb -e 
+          "GRANT XA_RECOVER_ADMIN on *.* to 'cquser'@'%';
+           FLUSH PRIVILEGES;
+           CREATE TABLE audit_log (id bigint NOT NULL AUTO_INCREMENT, message varchar(255) DEFAULT NULL, PRIMARY KEY (id));"
       component: database
 
   - id: start-jta-jpa
@@ -163,4 +168,4 @@ commands:
 
 events:
   postStart:
-    - create-audit-table
+    - setup-database
