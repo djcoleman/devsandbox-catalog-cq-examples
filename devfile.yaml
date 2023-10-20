@@ -87,6 +87,8 @@ components:
           value: cqpass
         - name: MYSQL_DATABASE
           value: testdb
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
       endpoints:
         - name: mysql
           exposure: public
