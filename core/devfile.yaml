@@ -1,0 +1,90 @@
+schemaVersion: 2.2.0
+attributes:
+  controller.devfile.io/storage-type: per-workspace
+metadata:
+  name: devsandbox-camel-catalog
+
+projects:
+
+- name: catalog
+  git:
+    remotes:
+      origin: https://github.com/djcoleman/devsandbox-catalog-cq-examples.git
+
+- name: examples
+  git:
+    remotes:
+      origin: https://github.com/djcoleman/camel-quarkus-examples.git
+    checkoutFrom:
+      revision: devsandbox-database
+
+components:
+  - name: tools
+    container:
+      image: registry.access.redhat.com/ubi8/openjdk-17:1.17
+      memoryLimit: 3Gi
+      env:
+        - name: MAVEN_CONFIG
+          value: ""
+        - name: JAVA_OPTS
+          value: "-XX:MaxRAMPercentage=50.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10
+            -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+            -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom
+            -Duser.home=/home/user"
+        - name: MAVEN_OPTS
+          value: $(JAVA_OPTS)
+        - name: VSCODE_DEFAULT_WORKSPACE
+          value: "/projects/catalog/config.code-workspace"
+      endpoints:
+        - exposure: public
+          name: 8080-tcp
+          protocol: http
+          targetPort: 8080
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      command: [ "tail", "-f", "/dev/null" ]
+
+  - name: webapp-all
+    container:
+      image: quay.io/redhatintegration/tutorial-web-app:latest
+      env:
+        - name: NODE_ENV
+          value: production
+        - name: THREESCALE_WILDCARD_DOMAIN
+          value: local.localdomain
+        - name: OPENSHIFT_VERSION
+          value: '4'
+        - name: PORT
+          value: '5001'
+        - name: WALKTHROUGH_LOCATIONS
+          value: >-
+            https://github.com/djcoleman/devsandbox-category-cq-database?walkthroughsFolder=/docs/labs
+      endpoints:
+        - name: tutorial
+          exposure: public
+          targetPort: 5001
+          protocol: https
+          secure: true
+      memoryLimit: 512Mi
+      mountSources: true
+      volumeMounts:
+        - name: tutorial-storage
+          path: /opt/user-walkthroughs
+
+  - name: m2
+    volume:
+      size: 2Gi
+
+  - name: tutorial-storage
+    volume:
+      size: 256Mi
+
+commands:
+
+  - id: start-timer-log
+    exec:
+      commandLine: mvn quarkus:dev
+      component: tools
+      workingDir: /projects/examples/timer-log
+
