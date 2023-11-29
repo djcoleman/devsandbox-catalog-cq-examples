@@ -162,7 +162,7 @@ commands:
 
   - id: start-jms-jpa
     exec:
-      commandLine: mvn clean quarkus:dev -Dquarkus.profile=k8s
+      commandLine: mvn quarkus:dev -Dquarkus.profile=k8s -Dquarkus.artemis.url=$(env | grep SERVICE_PORT_61616_TCP= | cut -d '=' -f 2)
       component: tools
       workingDir: /projects/examples/jms-jpa
 
